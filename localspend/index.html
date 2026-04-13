@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LocalSpend — Privacy-First Expense Tracker</title>
+  <meta name="description" content="LocalSpend reads your payment SMS messages on-device and organises them into a searchable ledger. No account. No cloud. No data leaves your phone." />
+  <meta property="og:title" content="LocalSpend — Privacy-First Expense Tracker" />
+  <meta property="og:description" content="Automatic expense tracking from SMS. Fully on-device. No account required." />
+  <meta property="og:type" content="website" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --primary:        #10b981;
+      --primary-dark:   #059669;
+      --primary-glow:   rgba(16,185,129,0.15);
+      --text:           #0f0f1a;
+      --text-muted:     #6b7280;
+      --surface:        #ffffff;
+      --surface-2:      #f0fdf8;
+      --border:         rgba(16,185,129,0.14);
+      --radius:         20px;
+      --radius-sm:      12px;
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', -apple-system, sans-serif;
+      color: var(--text);
+      background: var(--surface);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 16px 40px;
+      background: rgba(255,255,255,0.88);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+    .nav-logo span.icon { font-size: 24px; }
+    .nav-logo span.name { font-weight: 800; font-size: 18px; color: var(--text); letter-spacing: -0.3px; }
+    .nav-links { display: flex; align-items: center; gap: 8px; }
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 10px 20px; border-radius: 50px; font-size: 14px;
+      font-weight: 600; text-decoration: none; cursor: pointer;
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+    .btn:hover { transform: translateY(-1px); }
+    .btn-ghost { color: var(--text-muted); background: transparent; }
+    .btn-ghost:hover { color: var(--primary); }
+    .btn-primary {
+      background: var(--primary); color: white;
+      box-shadow: 0 4px 16px rgba(16,185,129,0.35);
+    }
+    .btn-primary:hover { box-shadow: 0 6px 24px rgba(16,185,129,0.45); }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: flex; flex-direction: column; align-items: center;
+      justify-content: center; text-align: center;
+      padding: 120px 24px 80px;
+      background: radial-gradient(ellipse 80% 60% at 50% -10%, rgba(16,185,129,0.1) 0%, transparent 70%),
+                  linear-gradient(180deg, #f0fdf8 0%, #ffffff 60%);
+    }
+    .badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 6px 16px; border-radius: 50px;
+      background: rgba(16,185,129,0.1); color: var(--primary-dark);
+      font-size: 13px; font-weight: 600; margin-bottom: 24px;
+      border: 1px solid rgba(16,185,129,0.2);
+    }
+    .hero h1 {
+      font-size: clamp(40px, 7vw, 80px);
+      font-weight: 900; letter-spacing: -2px; line-height: 1.05;
+      max-width: 800px; margin-bottom: 24px;
+    }
+    .hero h1 em {
+      font-style: normal;
+      background: linear-gradient(135deg, var(--primary), #34d399);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero p {
+      font-size: clamp(16px, 2vw, 20px); color: var(--text-muted);
+      max-width: 560px; margin: 0 auto 40px;
+    }
+    .hero-ctas { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; }
+    .btn-store {
+      display: inline-flex; align-items: center; gap: 10px;
+      padding: 14px 24px; border-radius: 16px; font-size: 15px;
+      font-weight: 700; text-decoration: none; transition: transform 0.15s, box-shadow 0.15s;
+    }
+    .btn-store:hover { transform: translateY(-2px); }
+    .btn-store-dark {
+      background: #0f0f1a; color: white;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+    }
+    .btn-store-dark:hover { box-shadow: 0 8px 30px rgba(0,0,0,0.3); }
+    .btn-store-light {
+      background: white; color: #6b7280;
+      border: 1.5px solid rgba(0,0,0,0.1);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+      cursor: default; opacity: 0.7;
+    }
+    .store-icon { font-size: 22px; }
+    .store-label { display: flex; flex-direction: column; text-align: left; line-height: 1.1; }
+    .store-label small { font-size: 10px; font-weight: 500; opacity: 0.65; letter-spacing: 0.3px; }
+
+    /* ── TAGLINE ROW ── */
+    .tagline-row {
+      display: flex; flex-wrap: wrap; justify-content: center; gap: 28px;
+      margin-top: 48px; font-size: 13px; color: var(--text-muted);
+    }
+    .tagline-row span { display: flex; align-items: center; gap: 6px; }
+
+    /* ── PHONE MOCKUP ── */
+    .mockup-section {
+      padding: 0 24px 100px;
+      display: flex; justify-content: center;
+    }
+    .phone-shell {
+      width: 280px; height: 580px; border-radius: 44px;
+      background: linear-gradient(160deg, #0a1a12 0%, #0d2318 50%, #061510 100%);
+      box-shadow:
+        0 0 0 1px rgba(255,255,255,0.08),
+        0 40px 80px rgba(16,185,129,0.18),
+        0 20px 40px rgba(0,0,0,0.35);
+      position: relative; overflow: hidden;
+      display: flex; flex-direction: column; align-items: center;
+    }
+    .phone-notch {
+      width: 100px; height: 28px; background: #040c09;
+      border-radius: 0 0 20px 20px; margin-top: 0; z-index: 2;
+    }
+    .phone-screen {
+      flex: 1; width: 100%; padding: 14px 14px 20px;
+      display: flex; flex-direction: column; gap: 8px;
+    }
+    .phone-header { color: white; font-weight: 800; font-size: 18px; letter-spacing: -0.5px; }
+    .phone-sub { color: rgba(255,255,255,0.4); font-size: 11px; margin-top: 1px; }
+    .phone-summary-row {
+      display: flex; gap: 8px; margin: 2px 0;
+    }
+    .phone-summary-card {
+      flex: 1; border-radius: 12px; padding: 10px 10px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+    .phone-summary-label { color: rgba(255,255,255,0.4); font-size: 9px; letter-spacing: 0.3px; }
+    .phone-summary-amount { color: white; font-size: 14px; font-weight: 700; margin-top: 2px; }
+    .phone-summary-amount.green {
+      background: linear-gradient(135deg, #10b981, #34d399);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .phone-tx {
+      border-radius: 14px; padding: 10px 12px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+      display: flex; align-items: center; gap: 10px;
+    }
+    .phone-tx-icon {
+      width: 34px; height: 34px; border-radius: 10px; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center; font-size: 17px;
+    }
+    .phone-tx-body { flex: 1; min-width: 0; }
+    .phone-tx-name { color: white; font-size: 12px; font-weight: 600; }
+    .phone-tx-cat { color: rgba(255,255,255,0.38); font-size: 10px; margin-top: 1px; }
+    .phone-tx-amount { font-size: 13px; font-weight: 700; color: #f87171; flex-shrink: 0; }
+
+    /* ── FEATURES ── */
+    section { padding: 100px 24px; }
+    .section-inner { max-width: 1100px; margin: 0 auto; }
+    .section-label {
+      display: inline-block; font-size: 12px; font-weight: 700;
+      letter-spacing: 1.5px; text-transform: uppercase;
+      color: var(--primary); margin-bottom: 12px;
+    }
+    .section-title {
+      font-size: clamp(28px, 4vw, 48px); font-weight: 900;
+      letter-spacing: -1.5px; line-height: 1.1; margin-bottom: 16px;
+    }
+    .section-desc { font-size: 17px; color: var(--text-muted); max-width: 520px; }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 20px; margin-top: 60px;
+    }
+    .feature-card {
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 28px;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .feature-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 40px var(--primary-glow);
+    }
+    .feature-icon { font-size: 32px; margin-bottom: 14px; }
+    .feature-title { font-size: 17px; font-weight: 700; margin-bottom: 8px; }
+    .feature-desc { font-size: 14px; color: var(--text-muted); line-height: 1.6; }
+
+    /* ── SUPPORTED BANKS ── */
+    .banks-section { background: var(--surface-2); }
+    .banks-grid {
+      display: flex; flex-wrap: wrap; gap: 10px; margin-top: 40px;
+    }
+    .bank-chip {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 8px 16px; border-radius: 50px; font-size: 13px; font-weight: 600;
+      background: white; border: 1px solid var(--border);
+      color: var(--text);
+    }
+    .bank-chip .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--primary); }
+
+    /* ── HOW IT WORKS ── */
+    .how-section { }
+    .steps { display: flex; flex-direction: column; gap: 0; margin-top: 60px; max-width: 640px; }
+    .step { display: flex; gap: 24px; padding-bottom: 40px; position: relative; }
+    .step:not(:last-child)::after {
+      content: ''; position: absolute; left: 23px; top: 52px; bottom: 0;
+      width: 2px; background: linear-gradient(180deg, var(--primary) 0%, transparent 100%);
+      opacity: 0.2;
+    }
+    .step-num {
+      width: 48px; height: 48px; border-radius: 50%; flex-shrink: 0;
+      background: linear-gradient(135deg, var(--primary), #34d399);
+      color: white; font-weight: 800; font-size: 18px;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 4px 16px rgba(16,185,129,0.35);
+    }
+    .step-body { padding-top: 10px; }
+    .step-title { font-size: 18px; font-weight: 700; margin-bottom: 6px; }
+    .step-desc { font-size: 15px; color: var(--text-muted); }
+
+    /* ── WHY PRIVATE ── */
+    .why-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 16px; margin-top: 60px;
+    }
+    .why-card {
+      border: 1.5px solid var(--border); border-radius: var(--radius-sm);
+      padding: 24px; text-align: center;
+    }
+    .why-card .icon { font-size: 28px; margin-bottom: 10px; }
+    .why-card h3 { font-size: 15px; font-weight: 700; margin-bottom: 6px; }
+    .why-card p { font-size: 13px; color: var(--text-muted); }
+
+    /* ── CTA ── */
+    .cta-section {
+      text-align: center; padding: 100px 24px 120px;
+      background: radial-gradient(ellipse 70% 80% at 50% 100%, rgba(16,185,129,0.08) 0%, transparent 70%);
+    }
+    .cta-section h2 { font-size: clamp(28px, 5vw, 56px); font-weight: 900; letter-spacing: -1.5px; margin-bottom: 20px; }
+    .cta-section p { font-size: 18px; color: var(--text-muted); margin-bottom: 40px; }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--border); padding: 32px 40px;
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 12px;
+      font-size: 13px; color: var(--text-muted);
+    }
+    footer a { color: var(--text-muted); text-decoration: none; }
+    footer a:hover { color: var(--primary); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 640px) {
+      nav { padding: 14px 20px; }
+      .nav-links .btn-ghost { display: none; }
+      .hero { padding: 100px 20px 60px; }
+      footer { padding: 24px 20px; flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="#" class="nav-logo">
+      <span class="icon">💸</span>
+      <span class="name">LocalSpend</span>
+    </a>
+    <div class="nav-links">
+      <a href="#features" class="btn btn-ghost">Features</a>
+      <a href="#how" class="btn btn-ghost">How it works</a>
+      <a href="https://play.google.com/store/apps/details?id=com.portfolio.localspend" class="btn btn-primary" target="_blank" rel="noopener">Get on Android ↗</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="badge">📱 Live on Android · iOS coming soon</div>
+    <h1>Your money stays<br /><em>on your phone.</em></h1>
+    <p>LocalSpend reads your payment SMS messages on-device and builds a searchable expense ledger — automatically. No account. No cloud. No data ever leaves your phone.</p>
+    <div class="hero-ctas" id="download">
+      <a href="https://play.google.com/store/apps/details?id=com.portfolio.localspend" class="btn-store btn-store-dark" target="_blank" rel="noopener">
+        <span class="store-icon">▶</span>
+        <span class="store-label">
+          <small>Get it on</small>
+          Google Play
+        </span>
+      </a>
+      <span class="btn-store btn-store-light">
+        <span class="store-icon">🍎</span>
+        <span class="store-label">
+          <small>Coming soon to the</small>
+          App Store
+        </span>
+      </span>
+    </div>
+    <div class="tagline-row">
+      <span>✅ No account required</span>
+      <span>🔒 100% on-device</span>
+      <span>📴 Zero telemetry</span>
+      <span>🚫 No cloud, ever</span>
+    </div>
+  </section>
+
+  <!-- PHONE MOCKUP -->
+  <div class="mockup-section">
+    <div class="phone-shell">
+      <div class="phone-notch"></div>
+      <div class="phone-screen">
+        <div>
+          <div class="phone-header">LocalSpend</div>
+          <div class="phone-sub">April 2026 · 14 transactions</div>
+        </div>
+        <div class="phone-summary-row">
+          <div class="phone-summary-card">
+            <div class="phone-summary-label">THIS MONTH</div>
+            <div class="phone-summary-amount green">₹8,240</div>
+          </div>
+          <div class="phone-summary-card">
+            <div class="phone-summary-label">THIS WEEK</div>
+            <div class="phone-summary-amount green">₹2,115</div>
+          </div>
+          <div class="phone-summary-card">
+            <div class="phone-summary-label">TODAY</div>
+            <div class="phone-summary-amount green">₹340</div>
+          </div>
+        </div>
+        <div style="color:rgba(255,255,255,0.35);font-size:10px;letter-spacing:0.5px;padding:2px 0;">RECENT</div>
+        <div class="phone-tx">
+          <div class="phone-tx-icon" style="background:rgba(251,191,36,0.15);">🍕</div>
+          <div class="phone-tx-body">
+            <div class="phone-tx-name">Swiggy</div>
+            <div class="phone-tx-cat">Food · UPI</div>
+          </div>
+          <div class="phone-tx-amount">−₹340</div>
+        </div>
+        <div class="phone-tx">
+          <div class="phone-tx-icon" style="background:rgba(99,179,237,0.15);">⛽</div>
+          <div class="phone-tx-body">
+            <div class="phone-tx-name">Indian Oil</div>
+            <div class="phone-tx-cat">Fuel · PhonePe</div>
+          </div>
+          <div class="phone-tx-amount">−₹850</div>
+        </div>
+        <div class="phone-tx">
+          <div class="phone-tx-icon" style="background:rgba(167,243,208,0.12);">🛒</div>
+          <div class="phone-tx-body">
+            <div class="phone-tx-name">Amazon</div>
+            <div class="phone-tx-cat">Shopping · HDFC</div>
+          </div>
+          <div class="phone-tx-amount">−₹1,299</div>
+        </div>
+        <div class="phone-tx">
+          <div class="phone-tx-icon" style="background:rgba(196,181,253,0.12);">🏥</div>
+          <div class="phone-tx-body">
+            <div class="phone-tx-name">Apollo Pharmacy</div>
+            <div class="phone-tx-cat">Health · Google Pay</div>
+          </div>
+          <div class="phone-tx-amount">−₹425</div>
+        </div>
+        <div class="phone-tx">
+          <div class="phone-tx-icon" style="background:rgba(253,186,116,0.12);">🎬</div>
+          <div class="phone-tx-body">
+            <div class="phone-tx-name">BookMyShow</div>
+            <div class="phone-tx-cat">Entertainment · Paytm</div>
+          </div>
+          <div class="phone-tx-amount">−₹600</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FEATURES -->
+  <section id="features">
+    <div class="section-inner">
+      <span class="section-label">Features</span>
+      <h2 class="section-title">Automatic tracking.<br />Zero effort.</h2>
+      <p class="section-desc">All the power of a finance app — none of the privacy trade-offs. No manual entry. No syncing. Just your data, sorted.</p>
+
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon">📲</div>
+          <div class="feature-title">SMS Auto-Import</div>
+          <div class="feature-desc">17 regex patterns parse BHIM UPI, Paytm, PhonePe, Google Pay, WhatsApp Pay, HDFC, SBI, ICICI, Axis, Kotak, Yes Bank, Visa, Mastercard, Amex — and more.</div>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🏷️</div>
+          <div class="feature-title">Smart Auto-Categories</div>
+          <div class="feature-desc">120+ merchant keywords auto-assign transactions to Food, Travel, Shopping, Utilities, Health, Fuel, Rent, EMI, Entertainment, and UPI P2P. Your corrections apply retroactively.</div>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">📊</div>
+          <div class="feature-title">Instant Dashboard</div>
+          <div class="feature-desc">Summary cards for Today, This Week, and This Month front and centre. Recent transactions feed below, with a FAB to the full list.</div>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🔍</div>
+          <div class="feature-title">Full-Text Search</div>
+          <div class="feature-desc">FTS5-powered full-text search finds any transaction instantly. Filter by category, sort by date or amount — with a smooth animated filter panel.</div>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🗄️</div>
+          <div class="feature-title">Local SQLite Database</div>
+          <div class="feature-desc">All data lives in a WAL-mode SQLite database on your device, managed via Drift ORM with codegen-backed type-safe queries. Fast, reliable, yours.</div>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🔐</div>
+          <div class="feature-title">Biometric Lock</div>
+          <div class="feature-desc">Protect your financial data with Face ID or Fingerprint authentication. App won't open without you — no passcode fallback required.</div>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🚫</div>
+          <div class="feature-title">Zero Telemetry</div>
+          <div class="feature-desc">Not a single network call is made from the data layer. No analytics SDK. No crash reporter phoning home. What's on your phone stays on your phone.</div>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">↩️</div>
+          <div class="feature-title">Swipe to Delete</div>
+          <div class="feature-desc">Remove any transaction with a quick swipe gesture. Clean, fast, and satisfying — your ledger, your rules.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SUPPORTED BANKS -->
+  <section class="banks-section">
+    <div class="section-inner">
+      <span class="section-label">Supported</span>
+      <h2 class="section-title">Works with your bank<br />out of the box.</h2>
+      <p class="section-desc">17 SMS patterns to cover every major Indian bank, UPI app, and payment network — with more added regularly.</p>
+      <div class="banks-grid">
+        <span class="bank-chip"><span class="dot"></span>BHIM UPI</span>
+        <span class="bank-chip"><span class="dot"></span>Paytm</span>
+        <span class="bank-chip"><span class="dot"></span>PhonePe</span>
+        <span class="bank-chip"><span class="dot"></span>Google Pay</span>
+        <span class="bank-chip"><span class="dot"></span>WhatsApp Pay</span>
+        <span class="bank-chip"><span class="dot"></span>HDFC Bank</span>
+        <span class="bank-chip"><span class="dot"></span>SBI</span>
+        <span class="bank-chip"><span class="dot"></span>ICICI Bank</span>
+        <span class="bank-chip"><span class="dot"></span>Axis Bank</span>
+        <span class="bank-chip"><span class="dot"></span>Kotak Mahindra</span>
+        <span class="bank-chip"><span class="dot"></span>Yes Bank</span>
+        <span class="bank-chip"><span class="dot"></span>Visa</span>
+        <span class="bank-chip"><span class="dot"></span>Mastercard</span>
+        <span class="bank-chip"><span class="dot"></span>Amex</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section id="how">
+    <div class="section-inner">
+      <span class="section-label">How it works</span>
+      <h2 class="section-title">Set up in seconds.<br />Runs forever.</h2>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-body">
+            <div class="step-title">Grant SMS permission</div>
+            <div class="step-desc">LocalSpend requests read-only SMS access once. It only reads payment-related messages — never personal conversations.</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-body">
+            <div class="step-title">Transactions appear automatically</div>
+            <div class="step-desc">Your inbox is scanned on-device. Every debit gets parsed and stored locally in seconds — no manual entry, ever.</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-body">
+            <div class="step-title">Smart categories, instantly</div>
+            <div class="step-desc">Transactions land in the right bucket automatically. Fix a category once and it applies retroactively to all matching merchants.</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-body">
+            <div class="step-title">Search and review anytime</div>
+            <div class="step-desc">Full-text search your entire ledger, filter by category, sort how you like, and swipe to delete anything you don't need.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY PRIVATE -->
+  <section style="background: var(--surface-2);">
+    <div class="section-inner" style="text-align:center">
+      <span class="section-label">Privacy first</span>
+      <h2 class="section-title" style="margin:0 auto 16px">Your finances are<br />nobody's business.</h2>
+      <p class="section-desc" style="margin:0 auto">Most finance apps sync your data to their servers to sell you products. LocalSpend works completely offline — by design.</p>
+      <div class="why-grid">
+        <div class="why-card">
+          <div class="icon">📵</div>
+          <h3>No network calls</h3>
+          <p>Zero outbound requests from the data layer. Your transactions never touch the internet.</p>
+        </div>
+        <div class="why-card">
+          <div class="icon">👤</div>
+          <h3>No account</h3>
+          <p>Install and go. No email, no phone number, no sign-up of any kind.</p>
+        </div>
+        <div class="why-card">
+          <div class="icon">🔐</div>
+          <h3>Biometric gate</h3>
+          <p>Face ID or fingerprint required to open the app. Your ledger is locked at rest.</p>
+        </div>
+        <div class="why-card">
+          <div class="icon">🗄️</div>
+          <h3>On-device only</h3>
+          <p>SQLite database lives entirely on your phone. Uninstall and it's gone — nothing left behind.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section">
+    <span class="section-label" style="display:block;margin-bottom:12px">Download free</span>
+    <h2>Start tracking.<br />Stay private.</h2>
+    <p>Free forever. No ads. No account. Just your expenses, organised.</p>
+    <div style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center;">
+      <a href="https://play.google.com/store/apps/details?id=com.portfolio.localspend" class="btn-store btn-store-dark" target="_blank" rel="noopener">
+        <span class="store-icon">▶</span>
+        <span class="store-label">
+          <small>Get it on</small>
+          Google Play
+        </span>
+      </a>
+      <span class="btn-store btn-store-light">
+        <span class="store-icon">🍎</span>
+        <span class="store-label">
+          <small>iOS coming soon to the</small>
+          App Store
+        </span>
+      </span>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <a href="/">🏗 Portfolio Ltd</a>
+    <span style="display:flex;gap:24px">
+      <a href="/localspend/privacy.html">Privacy Policy</a>
+      <a href="/streaks/">Streaks</a>
+      <a href="https://www.producthunt.com/@portfolio_ltd" target="_blank" rel="noopener">Product Hunt</a>
+    </span>
+    <span>© 2026 Portfolio Ltd</span>
+  </footer>
+
+</body>
+</html>
