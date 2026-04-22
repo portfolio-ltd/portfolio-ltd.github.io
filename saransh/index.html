@@ -1,0 +1,858 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Saransh — My Family Record Book. Organise your family's complete financial picture: investments, insurance, property, loans, identity documents and more. Secure, private and always with you." />
+  <meta property="og:title" content="Saransh — My Family Record Book" />
+  <meta property="og:description" content="Your family's wealth, records and legacy — organised, encrypted and always accessible." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://saransh.app" />
+  <title>Saransh — My Family Record Book</title>
+
+  <style>
+    /* ── Reset & tokens ──────────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy-deep:  #1E1B4B;
+      --navy:       #312E81;
+      --navy-mid:   #4338CA;
+      --navy-light: #EEF2FF;
+      --crimson:    #E11D48;
+      --green:      #059669;
+      --gold:       #D97706;
+      --surface:    #F5F7FF;
+      --card:       #FFFFFF;
+      --border:     #E2E8F0;
+      --text-1:     #0F172A;
+      --text-2:     #475569;
+      --text-muted: #94A3B8;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", sans-serif;
+      background: var(--surface);
+      color: var(--text-1);
+      line-height: 1.65;
+      font-size: 16px;
+      overflow-x: hidden;
+    }
+
+    /* ── Nav ─────────────────────────────────────────────────────────────── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 48px;
+      background: rgba(30,27,75,0.92);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: #fff;
+      font-family: Georgia, serif;
+      font-size: 20px;
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    .nav-logo-icon {
+      width: 36px; height: 36px;
+      background: rgba(255,255,255,0.15);
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+    }
+
+    .nav-logo-icon svg { width: 18px; height: 18px; fill: #fff; }
+
+    .nav-links { display: flex; align-items: center; gap: 32px; }
+    .nav-links a {
+      color: rgba(255,255,255,0.7);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      transition: color .2s;
+    }
+    .nav-links a:hover { color: #fff; }
+
+    .btn-nav {
+      background: var(--navy-mid);
+      color: #fff !important;
+      padding: 9px 20px;
+      border-radius: 8px;
+      font-weight: 600 !important;
+      font-size: 14px !important;
+    }
+    .btn-nav:hover { background: #5B4FE9 !important; }
+
+    @media (max-width: 700px) {
+      nav { padding: 14px 20px; }
+      .nav-links { gap: 16px; }
+      .nav-links a:not(.btn-nav) { display: none; }
+    }
+
+    /* ── Hero ────────────────────────────────────────────────────────────── */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 120px 24px 80px;
+      background:
+        radial-gradient(ellipse 80% 60% at 50% 0%, rgba(67,56,202,0.35) 0%, transparent 70%),
+        linear-gradient(160deg, var(--navy-deep) 0%, #1a1140 50%, #0f0a2e 100%);
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Decorative blobs */
+    .hero::before, .hero::after {
+      content: '';
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      opacity: 0.18;
+      pointer-events: none;
+    }
+    .hero::before {
+      width: 600px; height: 600px;
+      background: var(--navy-mid);
+      top: -200px; left: -150px;
+    }
+    .hero::after {
+      width: 400px; height: 400px;
+      background: #7C3AED;
+      bottom: -100px; right: -100px;
+    }
+
+    .hero-inner { position: relative; z-index: 1; max-width: 700px; margin: 0 auto; }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 18px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.15);
+      color: rgba(255,255,255,0.8);
+      font-size: 13px;
+      font-weight: 500;
+      margin-bottom: 28px;
+    }
+
+    .hero-badge .dot {
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: #4ADE80;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+
+    .hero h1 {
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(36px, 7vw, 64px);
+      font-weight: 700;
+      color: #fff;
+      line-height: 1.15;
+      letter-spacing: -1px;
+      margin-bottom: 20px;
+    }
+
+    .hero h1 span {
+      background: linear-gradient(90deg, #A5B4FC, #818CF8);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero p {
+      font-size: clamp(16px, 2.5vw, 20px);
+      color: rgba(255,255,255,0.65);
+      max-width: 520px;
+      margin: 0 auto 40px;
+      line-height: 1.7;
+    }
+
+    .hero-cta {
+      display: flex;
+      gap: 14px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 15px 32px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, var(--navy-mid), #7C3AED);
+      color: #fff;
+      font-weight: 700;
+      font-size: 16px;
+      text-decoration: none;
+      transition: transform .2s, box-shadow .2s;
+      box-shadow: 0 4px 24px rgba(67,56,202,0.5);
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(67,56,202,0.6); }
+
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 15px 32px;
+      border-radius: 12px;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.2);
+      color: rgba(255,255,255,0.85);
+      font-weight: 600;
+      font-size: 16px;
+      text-decoration: none;
+      transition: background .2s;
+    }
+    .btn-secondary:hover { background: rgba(255,255,255,0.16); }
+
+    .btn-primary svg, .btn-secondary svg { width: 18px; height: 18px; fill: currentColor; flex-shrink: 0; }
+
+    .hero-stats {
+      display: flex;
+      justify-content: center;
+      gap: 48px;
+      margin-top: 64px;
+      padding-top: 40px;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      flex-wrap: wrap;
+    }
+
+    .stat { text-align: center; }
+    .stat .val { font-size: 32px; font-weight: 700; color: #fff; font-family: Georgia, serif; }
+    .stat .lbl { font-size: 13px; color: rgba(255,255,255,0.5); margin-top: 4px; }
+
+    /* ── Section wrapper ──────────────────────────────────────────────────── */
+    section { padding: 96px 24px; }
+    .container { max-width: 1100px; margin: 0 auto; }
+
+    .section-tag {
+      display: inline-block;
+      padding: 5px 14px;
+      border-radius: 999px;
+      background: var(--navy-light);
+      color: var(--navy-mid);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 14px;
+    }
+
+    .section-title {
+      font-family: Georgia, serif;
+      font-size: clamp(28px, 4vw, 42px);
+      font-weight: 700;
+      color: var(--navy-deep);
+      letter-spacing: -0.5px;
+      line-height: 1.2;
+      margin-bottom: 16px;
+    }
+
+    .section-sub {
+      font-size: 17px;
+      color: var(--text-2);
+      max-width: 540px;
+      line-height: 1.7;
+    }
+
+    /* ── Features grid ────────────────────────────────────────────────────── */
+    #features { background: #fff; }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 24px;
+      margin-top: 56px;
+    }
+
+    .feature-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 32px 28px;
+      transition: transform .25s, box-shadow .25s;
+    }
+
+    .feature-card:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(30,27,75,0.08); }
+
+    .feature-icon {
+      width: 52px; height: 52px;
+      border-radius: 14px;
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 20px;
+    }
+
+    .feature-icon svg { width: 24px; height: 24px; }
+
+    .feature-card h3 {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--navy-deep);
+      margin-bottom: 8px;
+    }
+
+    .feature-card p {
+      font-size: 14px;
+      color: var(--text-2);
+      line-height: 1.65;
+    }
+
+    /* ── How it works ─────────────────────────────────────────────────────── */
+    #how { background: var(--surface); }
+
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 32px;
+      margin-top: 56px;
+    }
+
+    .step { text-align: center; }
+
+    .step-num {
+      width: 56px; height: 56px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--navy-mid), #7C3AED);
+      color: #fff;
+      font-size: 22px;
+      font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 20px;
+      font-family: Georgia, serif;
+    }
+
+    .step h3 { font-size: 17px; font-weight: 700; color: var(--navy-deep); margin-bottom: 8px; }
+    .step p { font-size: 14px; color: var(--text-2); line-height: 1.65; }
+
+    /* ── Security strip ───────────────────────────────────────────────────── */
+    #security {
+      background: linear-gradient(135deg, var(--navy-deep) 0%, var(--navy) 100%);
+      color: #fff;
+    }
+
+    #security .section-title { color: #fff; }
+    #security .section-sub { color: rgba(255,255,255,0.65); }
+    #security .section-tag { background: rgba(255,255,255,0.12); color: rgba(255,255,255,0.8); }
+
+    .security-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+      margin-top: 56px;
+    }
+
+    .security-pill {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 14px;
+      padding: 20px 22px;
+    }
+
+    .security-pill .icon-wrap {
+      width: 44px; height: 44px;
+      border-radius: 10px;
+      background: rgba(255,255,255,0.12);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .security-pill .icon-wrap svg { width: 20px; height: 20px; fill: #A5B4FC; }
+    .security-pill h4 { font-size: 14px; font-weight: 700; color: #fff; margin-bottom: 3px; }
+    .security-pill p  { font-size: 12px; color: rgba(255,255,255,0.55); }
+
+    /* ── Vault / categories ───────────────────────────────────────────────── */
+    #vault { background: #fff; }
+
+    .vault-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: 16px;
+      margin-top: 48px;
+    }
+
+    .vault-tile {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 24px 20px;
+      text-align: center;
+      transition: transform .2s;
+      cursor: default;
+    }
+
+    .vault-tile:hover { transform: translateY(-3px); }
+
+    .vault-tile .tile-icon {
+      width: 48px; height: 48px;
+      border-radius: 12px;
+      margin: 0 auto 14px;
+      display: flex; align-items: center; justify-content: center;
+    }
+
+    .vault-tile .tile-icon svg { width: 22px; height: 22px; }
+    .vault-tile span { font-size: 13px; font-weight: 600; color: var(--text-1); }
+
+    /* ── CTA banner ───────────────────────────────────────────────────────── */
+    #cta {
+      background:
+        radial-gradient(ellipse 80% 80% at 50% 50%, rgba(67,56,202,0.3) 0%, transparent 70%),
+        linear-gradient(160deg, var(--navy-deep), #1a1140);
+      padding: 96px 24px;
+      text-align: center;
+      color: #fff;
+    }
+
+    #cta h2 {
+      font-family: Georgia, serif;
+      font-size: clamp(28px, 5vw, 48px);
+      font-weight: 700;
+      margin-bottom: 16px;
+      letter-spacing: -0.5px;
+    }
+
+    #cta p {
+      font-size: 17px;
+      color: rgba(255,255,255,0.6);
+      max-width: 460px;
+      margin: 0 auto 40px;
+    }
+
+    /* ── Footer ───────────────────────────────────────────────────────────── */
+    footer {
+      background: #0a0720;
+      color: rgba(255,255,255,0.45);
+      padding: 48px 24px 32px;
+    }
+
+    .footer-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 40px;
+      padding-bottom: 40px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+
+    @media (max-width: 680px) { .footer-inner { grid-template-columns: 1fr; gap: 24px; } }
+
+    .footer-brand { display: flex; flex-direction: column; gap: 12px; }
+
+    .footer-logo {
+      display: flex; align-items: center; gap: 10px;
+      color: #fff; font-family: Georgia, serif; font-size: 18px; font-weight: 700;
+    }
+
+    .footer-logo-icon {
+      width: 32px; height: 32px;
+      background: rgba(255,255,255,0.12);
+      border-radius: 7px;
+      display: flex; align-items: center; justify-content: center;
+    }
+
+    .footer-logo-icon svg { width: 16px; height: 16px; fill: #fff; }
+
+    .footer-desc { font-size: 13px; line-height: 1.7; max-width: 240px; }
+
+    .footer-col h5 {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.6);
+      margin-bottom: 14px;
+    }
+
+    .footer-col a {
+      display: block;
+      color: rgba(255,255,255,0.45);
+      text-decoration: none;
+      font-size: 14px;
+      margin-bottom: 8px;
+      transition: color .2s;
+    }
+
+    .footer-col a:hover { color: #fff; }
+
+    .footer-bottom {
+      max-width: 1100px;
+      margin: 28px auto 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      font-size: 13px;
+    }
+
+    .footer-bottom a { color: rgba(255,255,255,0.45); text-decoration: none; }
+    .footer-bottom a:hover { color: #fff; }
+  </style>
+</head>
+<body>
+
+<!-- ── Navigation ──────────────────────────────────────────────────────────── -->
+<nav>
+  <a class="nav-logo" href="/">
+    <div class="nav-logo-icon">
+      <svg viewBox="0 0 24 24"><path d="M6.5 10h-2v7h2v-7zm6 0h-2v7h2v-7zm8.5 9H2v2h19v-2zm-2.5-9h-2v7h2v-7zM11.5 1L2 6v2h19V6l-9.5-5z"/></svg>
+    </div>
+    Saransh
+  </a>
+  <div class="nav-links">
+    <a href="#features">Features</a>
+    <a href="#security">Security</a>
+    <a href="#vault">Vault</a>
+    <a href="privacy-policy.html">Privacy</a>
+    <a class="btn-nav" href="#cta">Download App</a>
+  </div>
+</nav>
+
+<!-- ── Hero ────────────────────────────────────────────────────────────────── -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-badge">
+      <span class="dot"></span>
+      Now available on Android
+    </div>
+
+    <h1>Your Family's <span>Financial Story</span>,<br>Organised &amp; Protected</h1>
+
+    <p>
+      Saransh is your family's complete record book — investments, insurance, property,
+      loans, identity documents and legacy planning. All in one encrypted vault.
+    </p>
+
+    <div class="hero-cta">
+      <a class="btn-primary" href="https://play.google.com/store/apps/details?id=com.saransh.app" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24"><path d="M3.18 23.76c.38.21.84.22 1.24.01L17.78 12 4.42.22C4.02.01 3.56.02 3.18.23 2.8.45 2.56.87 2.56 1.32v21.36c0 .45.24.87.62 1.08z"/></svg>
+        Get it on Google Play
+      </a>
+      <a class="btn-secondary" href="#features">
+        <svg viewBox="0 0 24 24"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+        Learn more
+      </a>
+    </div>
+
+    <div class="hero-stats">
+      <div class="stat"><div class="val">256-bit</div><div class="lbl">AES Encryption</div></div>
+      <div class="stat"><div class="val">10+</div><div class="lbl">Asset categories</div></div>
+      <div class="stat"><div class="val">∞</div><div class="lbl">Family members</div></div>
+      <div class="stat"><div class="val">100%</div><div class="lbl">Private — no ads</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Features ────────────────────────────────────────────────────────────── -->
+<section id="features">
+  <div class="container">
+    <div class="section-tag">Features</div>
+    <h2 class="section-title">Everything your family needs,<br>in one place</h2>
+    <p class="section-sub">
+      From daily EMI tracking to estate planning — Saransh covers every corner of your family's financial life.
+    </p>
+
+    <div class="features-grid">
+
+      <div class="feature-card">
+        <div class="feature-icon" style="background:#EEF2FF;">
+          <svg viewBox="0 0 24 24" fill="#4338CA"><path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/></svg>
+        </div>
+        <h3>Financial Dashboard</h3>
+        <p>Net worth overview, asset allocation donut chart, EMI calendar and upcoming alerts — all at a glance.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon" style="background:#D1FAE5;">
+          <svg viewBox="0 0 24 24" fill="#059669"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/></svg>
+        </div>
+        <h3>Encrypted Vault</h3>
+        <p>Every document and record is encrypted with AES-256-GCM before it ever leaves your device.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon" style="background:#FEF3C7;">
+          <svg viewBox="0 0 24 24" fill="#D97706"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
+        </div>
+        <h3>Family Access</h3>
+        <p>Add family members, assign nominees and control who can see which records — with full audit logs.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon" style="background:#FFE4E6;">
+          <svg viewBox="0 0 24 24" fill="#E11D48"><path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"/></svg>
+        </div>
+        <h3>Smart Alerts</h3>
+        <p>Never miss a policy renewal, document expiry or loan EMI. Colour-coded by urgency — urgent, soon, info.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon" style="background:#EEF2FF;">
+          <svg viewBox="0 0 24 24" fill="#4338CA"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>
+        </div>
+        <h3>Identity Documents</h3>
+        <p>Passport, PAN, Aadhaar, driving licence — stored per family member with expiry tracking.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon" style="background:#D1FAE5;">
+          <svg viewBox="0 0 24 24" fill="#059669"><path d="M12 3L1 9l11 6 9-4.91V17h2V9M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82z"/></svg>
+        </div>
+        <h3>Will &amp; Legacy</h3>
+        <p>Document your will, executor details and nominee assignments — everything your family will need.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── How it works ─────────────────────────────────────────────────────────── -->
+<section id="how">
+  <div class="container">
+    <div class="section-tag">How it works</div>
+    <h2 class="section-title">Up and running in minutes</h2>
+    <p class="section-sub">No complicated setup. Saransh guides you from onboarding to a complete financial picture step by step.</p>
+
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <h3>Create Your Account</h3>
+        <p>Register with your email, verify with OTP and enable biometric login for instant secure access.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <h3>Add Your Records</h3>
+        <p>Fill in family members, investments, insurance, property, loans and identity documents at your own pace.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <h3>See Your Picture</h3>
+        <p>Your dashboard instantly shows net worth, asset allocation, upcoming alerts and profile completeness.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <h3>Stay On Top</h3>
+        <p>Smart notifications remind you of renewals, expiries and EMIs — so nothing ever slips through.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Vault categories ─────────────────────────────────────────────────────── -->
+<section id="vault">
+  <div class="container">
+    <div class="section-tag">Vault</div>
+    <h2 class="section-title">Every record, one secure place</h2>
+    <p class="section-sub">Saransh's vault covers every category of your family's financial and legal life.</p>
+
+    <div class="vault-grid">
+      <div class="vault-tile">
+        <div class="tile-icon" style="background:#EEF2FF;">
+          <svg viewBox="0 0 24 24" fill="#4338CA"><path d="M12 3L1 9l11 6 9-4.91V17h2V9M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82z"/></svg>
+        </div>
+        <span>Investments</span>
+      </div>
+      <div class="vault-tile">
+        <div class="tile-icon" style="background:#FFE4E6;">
+          <svg viewBox="0 0 24 24" fill="#E11D48"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/></svg>
+        </div>
+        <span>Insurance</span>
+      </div>
+      <div class="vault-tile">
+        <div class="tile-icon" style="background:#D1FAE5;">
+          <svg viewBox="0 0 24 24" fill="#059669"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+        </div>
+        <span>Property</span>
+      </div>
+      <div class="vault-tile">
+        <div class="tile-icon" style="background:#FEF3C7;">
+          <svg viewBox="0 0 24 24" fill="#D97706"><path d="M6.5 10h-2v7h2v-7zm6 0h-2v7h2v-7zm8.5 9H2v2h19v-2zm-2.5-9h-2v7h2v-7zM11.5 1L2 6v2h19V6l-9.5-5z"/></svg>
+        </div>
+        <span>Loans &amp; EMIs</span>
+      </div>
+      <div class="vault-tile">
+        <div class="tile-icon" style="background:#EEF2FF;">
+          <svg viewBox="0 0 24 24" fill="#4338CA"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm-5 10H9v-2h6v2zm3-4H6V8h12v2z"/></svg>
+        </div>
+        <span>Identity Docs</span>
+      </div>
+      <div class="vault-tile">
+        <div class="tile-icon" style="background:#FEF3C7;">
+          <svg viewBox="0 0 24 24" fill="#D97706"><path d="M17 12h-5v5h5v-5zM16 1v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2h-1V1h-2zm3 18H5V8h14v11z"/></svg>
+        </div>
+        <span>Vehicles</span>
+      </div>
+      <div class="vault-tile">
+        <div class="tile-icon" style="background:#D1FAE5;">
+          <svg viewBox="0 0 24 24" fill="#059669"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67V7z"/></svg>
+        </div>
+        <span>Precious Metals</span>
+      </div>
+      <div class="vault-tile">
+        <div class="tile-icon" style="background:#EEF2FF;">
+          <svg viewBox="0 0 24 24" fill="#4338CA"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
+        </div>
+        <span>Family Members</span>
+      </div>
+      <div class="vault-tile">
+        <div class="tile-icon" style="background:#FFE4E6;">
+          <svg viewBox="0 0 24 24" fill="#E11D48"><path d="M17 12h-5v5h5v-5zM16 1v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2h-1V1h-2zm3 18H5V8h14v11z"/></svg>
+        </div>
+        <span>Will &amp; Executor</span>
+      </div>
+      <div class="vault-tile">
+        <div class="tile-icon" style="background:#FEF3C7;">
+          <svg viewBox="0 0 24 24" fill="#D97706"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 14H4v-6h16v6zm0-10H4V6h16v2z"/></svg>
+        </div>
+        <span>Contacts</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Security ─────────────────────────────────────────────────────────────── -->
+<section id="security">
+  <div class="container">
+    <div class="section-tag">Security</div>
+    <h2 class="section-title">Built for privacy from day one</h2>
+    <p class="section-sub">Your financial records are deeply personal. We treat security as a core feature, not an afterthought.</p>
+
+    <div class="security-grid">
+      <div class="security-pill">
+        <div class="icon-wrap">
+          <svg viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>
+        </div>
+        <div>
+          <h4>AES-256 Encryption</h4>
+          <p>All sensitive data encrypted at rest</p>
+        </div>
+      </div>
+      <div class="security-pill">
+        <div class="icon-wrap">
+          <svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/></svg>
+        </div>
+        <div>
+          <h4>TLS 1.3 in Transit</h4>
+          <p>End-to-end encrypted API calls</p>
+        </div>
+      </div>
+      <div class="security-pill">
+        <div class="icon-wrap">
+          <svg viewBox="0 0 24 24"><path d="M17.81 4.47c-.08 0-.16-.02-.23-.06C15.66 3.42 14 3 12.01 3c-1.98 0-3.86.47-5.57 1.41-.24.13-.54.04-.68-.2-.13-.24-.04-.55.2-.68C7.82 2.52 9.86 2 12.01 2c2.13 0 3.99.47 6.03 1.52.25.13.34.43.21.67-.09.18-.26.28-.44.28zM3.5 9.72c-.1 0-.2-.03-.29-.09-.23-.16-.28-.47-.12-.7.99-1.4 2.25-2.5 3.75-3.27C9.98 4.04 14 4.03 17.15 6.07c1.5.76 2.76 1.86 3.75 3.25.16.22.11.54-.12.7-.23.16-.54.11-.7-.12-.9-1.26-2.04-2.25-3.39-2.94-2.87-1.86-6.65-1.87-9.53.01-1.36.7-2.5 1.7-3.4 2.96-.08.14-.23.19-.26.79z"/><path d="M9.75 21.79c-.1 0-.2-.03-.29-.09-.23-.16-.28-.47-.12-.7l.73-1.07c.16-.23.47-.28.7-.12.23.16.28.47.12.7l-.73 1.07c-.1.14-.25.21-.41.21zm4.5 0c-.16 0-.31-.07-.41-.21l-.73-1.07c-.16-.23-.11-.54.12-.7.23-.16.54-.11.7.12l.73 1.07c.16.23.11.54-.12.7-.09.06-.19.09-.29.09zM12 23c-1.09 0-2-.91-2-2s.91-2 2-2 2 .91 2 2-.91 2-2 2zm0-3c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1z"/></svg>
+        </div>
+        <div>
+          <h4>Biometric Login</h4>
+          <p>Fingerprint / face — on-device only</p>
+        </div>
+      </div>
+      <div class="security-pill">
+        <div class="icon-wrap">
+          <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 3c1.93 0 3.5 1.57 3.5 3.5S13.93 13 12 13s-3.5-1.57-3.5-3.5S10.07 6 12 6zm7 13H5v-.23c0-.62.28-1.2.76-1.58C7.47 15.82 9.64 15 12 15s4.53.82 6.24 2.19c.48.38.76.97.76 1.58V19z"/></svg>
+        </div>
+        <div>
+          <h4>No Data Selling</h4>
+          <p>Your records are never sold or shared</p>
+        </div>
+      </div>
+      <div class="security-pill">
+        <div class="icon-wrap">
+          <svg viewBox="0 0 24 24"><path d="M12 2C6.47 2 2 6.47 2 12s4.47 10 10 10 10-4.47 10-10S17.53 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+        </div>
+        <div>
+          <h4>DPDPA Compliant</h4>
+          <p>India's Digital Personal Data Protection Act</p>
+        </div>
+      </div>
+      <div class="security-pill">
+        <div class="icon-wrap">
+          <svg viewBox="0 0 24 24"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96C5 16.1 6.1 17 7.5 17h11v-2h-10.48c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63H19c.75 0 1.41-.41 1.75-1.03l3.58-6.49A1 1 0 0023.43 4H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg>
+        </div>
+        <div>
+          <h4>No Ads, Ever</h4>
+          <p>Zero tracking, zero advertising</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── CTA ──────────────────────────────────────────────────────────────────── -->
+<section id="cta">
+  <h2>Start organising your<br>family's future today</h2>
+  <p>Free to download. Your data stays yours.</p>
+  <div class="hero-cta">
+    <a class="btn-primary" href="https://play.google.com/store/apps/details?id=com.saransh.app" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24"><path d="M3.18 23.76c.38.21.84.22 1.24.01L17.78 12 4.42.22C4.02.01 3.56.02 3.18.23 2.8.45 2.56.87 2.56 1.32v21.36c0 .45.24.87.62 1.08z"/></svg>
+      Get it on Google Play
+    </a>
+  </div>
+</section>
+
+<!-- ── Footer ───────────────────────────────────────────────────────────────── -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <div class="footer-logo">
+        <div class="footer-logo-icon">
+          <svg viewBox="0 0 24 24"><path d="M6.5 10h-2v7h2v-7zm6 0h-2v7h2v-7zm8.5 9H2v2h19v-2zm-2.5-9h-2v7h2v-7zM11.5 1L2 6v2h19V6l-9.5-5z"/></svg>
+        </div>
+        Saransh
+      </div>
+      <p class="footer-desc">My Family Record Book — organise your family's complete financial story in one secure, encrypted place.</p>
+    </div>
+
+    <div class="footer-col">
+      <h5>Product</h5>
+      <a href="#features">Features</a>
+      <a href="#vault">Vault</a>
+      <a href="#security">Security</a>
+      <a href="#how">How it works</a>
+    </div>
+
+    <div class="footer-col">
+      <h5>Legal</h5>
+      <a href="privacy-policy.html">Privacy Policy</a>
+      <a href="mailto:privacy@saransh.app">Contact DPO</a>
+      <a href="mailto:support@saransh.app">Support</a>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <span>© 2026 Saransh. All rights reserved.</span>
+    <span>
+      <a href="privacy-policy.html">Privacy Policy</a>
+      &nbsp;·&nbsp;
+      <a href="mailto:support@saransh.app">support@saransh.app</a>
+    </span>
+  </div>
+</footer>
+
+</body>
+</html>

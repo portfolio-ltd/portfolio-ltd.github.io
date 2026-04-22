@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Privacy Policy — Saransh</title>
+  <style>
+    /* ── Reset & base ─────────────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy-deep:  #1E1B4B;
+      --navy:       #312E81;
+      --navy-mid:   #4338CA;
+      --navy-light: #EEF2FF;
+      --crimson:    #E11D48;
+      --green:      #059669;
+      --gold:       #D97706;
+      --surface:    #F5F7FF;
+      --card:       #FFFFFF;
+      --border:     #E2E8F0;
+      --text-1:     #0F172A;
+      --text-2:     #475569;
+      --text-muted: #94A3B8;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", sans-serif;
+      background: var(--surface);
+      color: var(--text-1);
+      line-height: 1.7;
+      font-size: 16px;
+    }
+
+    /* ── Header ───────────────────────────────────────────────────────────── */
+    header {
+      background: linear-gradient(135deg, var(--navy-deep) 0%, var(--navy-mid) 100%);
+      padding: 64px 24px 56px;
+      text-align: center;
+      color: #fff;
+    }
+
+    .logo-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 72px;
+      height: 72px;
+      background: rgba(255,255,255,0.14);
+      border-radius: 50%;
+      margin-bottom: 20px;
+    }
+
+    .logo-icon svg { width: 36px; height: 36px; fill: #fff; }
+
+    header h1 {
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(28px, 5vw, 42px);
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      margin-bottom: 8px;
+    }
+
+    header p.tagline {
+      font-size: 15px;
+      color: rgba(255,255,255,0.72);
+      max-width: 480px;
+      margin: 0 auto;
+    }
+
+    .badge {
+      display: inline-block;
+      margin-top: 20px;
+      padding: 6px 16px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.15);
+      font-size: 13px;
+      color: rgba(255,255,255,0.85);
+      border: 1px solid rgba(255,255,255,0.2);
+    }
+
+    /* ── Layout ───────────────────────────────────────────────────────────── */
+    .wrapper {
+      max-width: 820px;
+      margin: 0 auto;
+      padding: 48px 24px 96px;
+    }
+
+    /* ── TOC ──────────────────────────────────────────────────────────────── */
+    .toc {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 28px 32px;
+      margin-bottom: 48px;
+    }
+
+    .toc h2 {
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+    }
+
+    .toc ol {
+      padding-left: 20px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px 32px;
+    }
+
+    @media (max-width: 540px) { .toc ol { grid-template-columns: 1fr; } }
+
+    .toc a {
+      color: var(--navy-mid);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+    .toc a:hover { text-decoration: underline; }
+
+    /* ── Sections ─────────────────────────────────────────────────────────── */
+    section {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 36px 40px;
+      margin-bottom: 20px;
+      scroll-margin-top: 24px;
+    }
+
+    @media (max-width: 600px) { section { padding: 24px 20px; } }
+
+    section .section-header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 20px;
+    }
+
+    .section-icon {
+      flex-shrink: 0;
+      width: 42px;
+      height: 42px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .section-icon svg { width: 20px; height: 20px; }
+
+    section h2 {
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 21px;
+      font-weight: 700;
+      color: var(--navy-deep);
+    }
+
+    section p, section li {
+      color: var(--text-2);
+      font-size: 15px;
+      line-height: 1.75;
+    }
+
+    section p + p { margin-top: 12px; }
+
+    section h3 {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text-1);
+      margin: 22px 0 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    ul, ol {
+      padding-left: 22px;
+      margin-top: 8px;
+    }
+
+    li { margin-bottom: 6px; }
+
+    /* ── Highlight boxes ──────────────────────────────────────────────────── */
+    .highlight {
+      border-radius: 10px;
+      padding: 14px 18px;
+      margin: 16px 0;
+      font-size: 14px;
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+    }
+
+    .highlight svg { flex-shrink: 0; width: 18px; height: 18px; margin-top: 2px; }
+
+    .highlight.blue  { background: var(--navy-light); color: var(--navy-deep); border-left: 3px solid var(--navy-mid); }
+    .highlight.green { background: #D1FAE5; color: #065F46; border-left: 3px solid var(--green); }
+    .highlight.amber { background: #FEF3C7; color: #92400E; border-left: 3px solid var(--gold); }
+
+    /* ── Data table ───────────────────────────────────────────────────────── */
+    .data-table { width: 100%; border-collapse: collapse; margin-top: 16px; font-size: 14px; }
+    .data-table th {
+      background: var(--navy-light);
+      color: var(--navy-deep);
+      font-weight: 700;
+      text-align: left;
+      padding: 10px 14px;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+    .data-table td { padding: 10px 14px; border-bottom: 1px solid var(--border); color: var(--text-2); }
+    .data-table tr:last-child td { border-bottom: none; }
+    .data-table tr:hover td { background: var(--surface); }
+
+    /* ── Contact card ─────────────────────────────────────────────────────── */
+    .contact-card {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-top: 16px;
+    }
+
+    .contact-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--navy-light);
+      color: var(--navy-mid);
+      padding: 10px 18px;
+      border-radius: 999px;
+      font-size: 14px;
+      font-weight: 600;
+      text-decoration: none;
+    }
+
+    .contact-pill svg { width: 16px; height: 16px; }
+    .contact-pill:hover { background: var(--navy-mid); color: #fff; }
+
+    /* ── Footer ───────────────────────────────────────────────────────────── */
+    footer {
+      background: var(--navy-deep);
+      color: rgba(255,255,255,0.55);
+      text-align: center;
+      padding: 32px 24px;
+      font-size: 13px;
+    }
+
+    footer a { color: rgba(255,255,255,0.75); }
+
+    /* ── Divider ──────────────────────────────────────────────────────────── */
+    hr { border: none; border-top: 1px solid var(--border); margin: 18px 0; }
+  </style>
+</head>
+<body>
+
+<!-- ── Header ──────────────────────────────────────────────────────────────── -->
+<header>
+  <div class="logo-icon">
+    <svg viewBox="0 0 24 24"><path d="M6.5 10h-2v7h2v-7zm6 0h-2v7h2v-7zm8.5 9H2v2h19v-2zm-2.5-9h-2v7h2v-7zM11.5 1L2 6v2h19V6l-9.5-5z"/></svg>
+  </div>
+  <h1>Privacy Policy</h1>
+  <p class="tagline">Saransh — My Family Record Book</p>
+  <div class="badge">Last updated: 22 April 2026 · Version 1.0</div>
+</header>
+
+<!-- ── Main content ────────────────────────────────────────────────────────── -->
+<div class="wrapper">
+
+  <!-- Table of Contents -->
+  <div class="toc">
+    <h2>Contents</h2>
+    <ol>
+      <li><a href="#s1">Information We Collect</a></li>
+      <li><a href="#s2">How We Use Your Information</a></li>
+      <li><a href="#s3">Data Storage &amp; Security</a></li>
+      <li><a href="#s4">Data Sharing &amp; Third Parties</a></li>
+      <li><a href="#s5">Your Rights &amp; Choices</a></li>
+      <li><a href="#s6">Data Retention</a></li>
+      <li><a href="#s7">Children's Privacy</a></li>
+      <li><a href="#s8">Changes to This Policy</a></li>
+      <li><a href="#s9">Contact Us</a></li>
+    </ol>
+  </div>
+
+  <!-- Intro -->
+  <section style="border-left: 4px solid var(--navy-mid);">
+    <p>
+      Welcome to <strong>Saransh</strong> ("the App", "we", "our", or "us"). Saransh is a personal wealth
+      and family records management application that helps you organise financial documents, family member
+      details, insurance policies, investments, property and legal records in one secure place.
+    </p>
+    <p style="margin-top: 12px;">
+      This Privacy Policy explains how we collect, use, protect and share information when you use the
+      Saransh mobile application and associated services. By using Saransh you agree to the practices
+      described here. If you do not agree, please discontinue use of the App.
+    </p>
+    <div class="highlight blue">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
+      <span>We are based in India. This policy is governed by the <strong>Information Technology Act, 2000</strong>
+      and the <strong>Digital Personal Data Protection Act, 2023 (DPDPA)</strong>.</span>
+    </div>
+  </section>
+
+  <!-- 1. Information We Collect -->
+  <section id="s1">
+    <div class="section-header">
+      <div class="section-icon" style="background:#EEF2FF;">
+        <svg viewBox="0 0 24 24" fill="#4338CA"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm-5 10H9v-2h6v2zm3-4H6V8h12v2z"/></svg>
+      </div>
+      <h2>Information We Collect</h2>
+    </div>
+
+    <h3>1.1 Information You Provide</h3>
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Category</th>
+          <th>Examples</th>
+          <th>Purpose</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Account</strong></td>
+          <td>Full name, email address, phone number, password (hashed)</td>
+          <td>Account creation, authentication</td>
+        </tr>
+        <tr>
+          <td><strong>Identity Documents</strong></td>
+          <td>PAN, Aadhaar number, passport number, driving licence, expiry dates</td>
+          <td>Document vault, expiry alerts</td>
+        </tr>
+        <tr>
+          <td><strong>Family Members</strong></td>
+          <td>Name, relation, date of birth</td>
+          <td>Family access management, nominee tracking</td>
+        </tr>
+        <tr>
+          <td><strong>Financial Records</strong></td>
+          <td>Investment portfolio details, loan information, EMI amounts, lender names</td>
+          <td>Financial dashboard, net worth tracking</td>
+        </tr>
+        <tr>
+          <td><strong>Insurance</strong></td>
+          <td>Policy numbers, insurer names, sum assured, premium dates</td>
+          <td>Insurance management, renewal reminders</td>
+        </tr>
+        <tr>
+          <td><strong>Property &amp; Assets</strong></td>
+          <td>Property addresses, vehicle registration numbers, metal holdings</td>
+          <td>Asset tracking</td>
+        </tr>
+        <tr>
+          <td><strong>Will &amp; Executor</strong></td>
+          <td>Executor name, contact, copy location</td>
+          <td>Estate planning records</td>
+        </tr>
+        <tr>
+          <td><strong>Professional Contacts</strong></td>
+          <td>CA, lawyer, doctor names, phone, email</td>
+          <td>Contact book</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>1.2 Information Collected Automatically</h3>
+    <ul>
+      <li><strong>Device information</strong> — device model, OS version, app version, unique device identifiers</li>
+      <li><strong>Usage data</strong> — screens visited, features used, session duration (no keystroke or field-level logging)</li>
+      <li><strong>Crash logs</strong> — stack traces, error codes to help us fix bugs</li>
+      <li><strong>Network data</strong> — IP address, request timestamps (for fraud prevention)</li>
+    </ul>
+
+    <h3>1.3 Biometric Authentication Data</h3>
+    <p>
+      If you enable biometric login (fingerprint / face), the biometric template is processed entirely by
+      your device's secure enclave (Android BiometricPrompt API). <strong>We never receive or store biometric data.</strong>
+    </p>
+  </section>
+
+  <!-- 2. How We Use -->
+  <section id="s2">
+    <div class="section-header">
+      <div class="section-icon" style="background:#D1FAE5;">
+        <svg viewBox="0 0 24 24" fill="#059669"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 3c1.93 0 3.5 1.57 3.5 3.5S13.93 13 12 13s-3.5-1.57-3.5-3.5S10.07 6 12 6zm7 13H5v-.23c0-.62.28-1.2.76-1.58C7.47 15.82 9.64 15 12 15s4.53.82 6.24 2.19c.48.38.76.97.76 1.58V19z"/></svg>
+      </div>
+      <h2>How We Use Your Information</h2>
+    </div>
+
+    <p>We use the information we collect to:</p>
+    <ul>
+      <li>Create and manage your account, authenticate your identity</li>
+      <li>Provide the core features of the App — dashboard, vault, alerts, family records</li>
+      <li>Send expiry and renewal alerts for documents, insurance and loans</li>
+      <li>Improve application performance, fix bugs and develop new features</li>
+      <li>Prevent fraud, abuse and unauthorised access</li>
+      <li>Comply with applicable laws and regulations</li>
+      <li>Respond to your support requests</li>
+    </ul>
+
+    <div class="highlight green">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/></svg>
+      <span><strong>We do not use your financial or personal records for advertising, profiling or sale to third parties.</strong></span>
+    </div>
+
+    <h3>Legal Bases (DPDPA 2023)</h3>
+    <ul>
+      <li><strong>Contract</strong> — processing necessary to provide the App service you signed up for</li>
+      <li><strong>Consent</strong> — optional features such as biometric login or marketing communications</li>
+      <li><strong>Legitimate interest</strong> — security monitoring, fraud prevention, product analytics</li>
+      <li><strong>Legal obligation</strong> — compliance with applicable Indian law</li>
+    </ul>
+  </section>
+
+  <!-- 3. Security -->
+  <section id="s3">
+    <div class="section-header">
+      <div class="section-icon" style="background:#FEF3C7;">
+        <svg viewBox="0 0 24 24" fill="#D97706"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>
+      </div>
+      <h2>Data Storage &amp; Security</h2>
+    </div>
+
+    <h3>Encryption</h3>
+    <ul>
+      <li><strong>At rest</strong> — all sensitive fields are encrypted using AES-256-GCM before storage in our database</li>
+      <li><strong>In transit</strong> — all communication between the App and our servers uses TLS 1.3</li>
+      <li><strong>On device</strong> — locally cached credentials are stored in Android EncryptedSharedPreferences (Keystore-backed AES-256)</li>
+    </ul>
+
+    <h3>Infrastructure</h3>
+    <p>
+      Our backend API (<code>api.saransh.app</code>) is hosted on secured cloud infrastructure with
+      restricted access controls, automated security patches, and regular vulnerability assessments.
+    </p>
+
+    <h3>Access Controls</h3>
+    <ul>
+      <li>Only authorised personnel have access to production data</li>
+      <li>All staff access is logged and audited</li>
+      <li>We use multi-factor authentication on all internal systems</li>
+    </ul>
+
+    <div class="highlight amber">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
+      <span>No method of electronic transmission or storage is 100% secure. While we use industry-standard
+      measures, we cannot guarantee absolute security. Please use a strong unique password and enable
+      biometric authentication.</span>
+    </div>
+
+    <h3>Data Location</h3>
+    <p>Your data is stored on servers located in <strong>India</strong>. We do not transfer personal data outside India unless required by law or with your explicit consent.</p>
+  </section>
+
+  <!-- 4. Sharing -->
+  <section id="s4">
+    <div class="section-header">
+      <div class="section-icon" style="background:#EEF2FF;">
+        <svg viewBox="0 0 24 24" fill="#4338CA"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92 1.61 0 2.92-1.31 2.92-2.92s-1.31-2.92-2.92-2.92z"/></svg>
+      </div>
+      <h2>Data Sharing &amp; Third Parties</h2>
+    </div>
+
+    <p><strong>We do not sell, rent or trade your personal data.</strong> We may share data only in these limited circumstances:</p>
+
+    <h3>Service Providers</h3>
+    <p>We use third-party services solely to operate the App. These providers are contractually bound to
+    keep your data confidential and may not use it for their own purposes:</p>
+    <ul>
+      <li><strong>Cloud hosting</strong> — infrastructure and database services</li>
+      <li><strong>Email delivery</strong> — for OTP verification and account alerts</li>
+      <li><strong>Crash reporting</strong> — anonymised diagnostic data only</li>
+    </ul>
+
+    <h3>Legal Requirements</h3>
+    <p>We may disclose data if required by law, court order, or a lawful request from a government authority, or to protect the rights, property or safety of Saransh, our users or others.</p>
+
+    <h3>Business Transfers</h3>
+    <p>In the event of a merger, acquisition or sale of assets, your data may be transferred to the
+    acquiring entity, who will be bound by this Privacy Policy.</p>
+
+    <h3>With Your Consent</h3>
+    <p>We will share your data with any other party only with your explicit consent.</p>
+  </section>
+
+  <!-- 5. Your Rights -->
+  <section id="s5">
+    <div class="section-header">
+      <div class="section-icon" style="background:#D1FAE5;">
+        <svg viewBox="0 0 24 24" fill="#059669"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+      </div>
+      <h2>Your Rights &amp; Choices</h2>
+    </div>
+
+    <p>Under the DPDPA 2023 and applicable Indian law, you have the following rights:</p>
+
+    <table class="data-table">
+      <thead>
+        <tr><th>Right</th><th>What it means</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Access</strong></td>
+          <td>Request a copy of the personal data we hold about you</td>
+        </tr>
+        <tr>
+          <td><strong>Correction</strong></td>
+          <td>Ask us to correct inaccurate or incomplete data</td>
+        </tr>
+        <tr>
+          <td><strong>Erasure</strong></td>
+          <td>Request deletion of your account and all associated data</td>
+        </tr>
+        <tr>
+          <td><strong>Withdraw Consent</strong></td>
+          <td>Withdraw consent for optional processing (e.g. marketing) at any time</td>
+        </tr>
+        <tr>
+          <td><strong>Nominate</strong></td>
+          <td>Nominate a person to exercise your rights in the event of death or incapacity</td>
+        </tr>
+        <tr>
+          <td><strong>Grievance</strong></td>
+          <td>Lodge a complaint with our Data Protection Officer (see Contact section)</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>Account Deletion</h3>
+    <p>
+      You can delete your account at any time from <strong>Profile → Settings → Delete Account</strong>
+      in the App. Upon deletion, all your personal data will be permanently erased within <strong>30 days</strong>,
+      except where we are required by law to retain certain records.
+    </p>
+
+    <h3>Push Notifications</h3>
+    <p>You can disable expiry alerts and push notifications via your device's system settings or from
+    <strong>Profile → Settings → Notifications</strong> in the App.</p>
+  </section>
+
+  <!-- 6. Retention -->
+  <section id="s6">
+    <div class="section-header">
+      <div class="section-icon" style="background:#EEF2FF;">
+        <svg viewBox="0 0 24 24" fill="#4338CA"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zm4.24 16L11 14V7h1.5v6.25l4.5 2.67-1.26 2.08z"/></svg>
+      </div>
+      <h2>Data Retention</h2>
+    </div>
+
+    <p>We retain your personal data for as long as your account is active or as needed to provide the App's services. Specific retention periods:</p>
+
+    <ul>
+      <li><strong>Account data</strong> — retained for the lifetime of your account, plus 30 days after deletion</li>
+      <li><strong>Financial records</strong> — deleted immediately upon account deletion</li>
+      <li><strong>Server access logs</strong> — retained for up to 90 days for security purposes</li>
+      <li><strong>Crash reports</strong> — retained for up to 12 months in anonymised form</li>
+      <li><strong>Legal obligations</strong> — where law requires longer retention (e.g. tax, audit), we retain only the minimum necessary data</li>
+    </ul>
+  </section>
+
+  <!-- 7. Children -->
+  <section id="s7">
+    <div class="section-header">
+      <div class="section-icon" style="background:#FEE2E2;">
+        <svg viewBox="0 0 24 24" fill="#E11D48"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+      </div>
+      <h2>Children's Privacy</h2>
+    </div>
+
+    <p>
+      Saransh is not directed to children under the age of <strong>18</strong>. We do not knowingly collect
+      personal data from minors. Family member records may include names and relations of minor family
+      members as entered by an adult account holder.
+    </p>
+    <p>
+      If you believe we have inadvertently collected data from a person under 18 without verified parental
+      consent, please contact us immediately and we will delete the data.
+    </p>
+  </section>
+
+  <!-- 8. Changes -->
+  <section id="s8">
+    <div class="section-header">
+      <div class="section-icon" style="background:#EEF2FF;">
+        <svg viewBox="0 0 24 24" fill="#4338CA"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg>
+      </div>
+      <h2>Changes to This Policy</h2>
+    </div>
+
+    <p>
+      We may update this Privacy Policy from time to time. When we make material changes, we will:
+    </p>
+    <ul>
+      <li>Update the "Last updated" date at the top of this page</li>
+      <li>Send an in-app notification and/or email to registered users</li>
+      <li>For significant changes, request fresh consent where required by law</li>
+    </ul>
+    <p>
+      Continued use of the App after the effective date of any changes constitutes your acceptance of
+      the revised policy.
+    </p>
+  </section>
+
+  <!-- 9. Contact -->
+  <section id="s9">
+    <div class="section-header">
+      <div class="section-icon" style="background:#D1FAE5;">
+        <svg viewBox="0 0 24 24" fill="#059669"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+      </div>
+      <h2>Contact Us</h2>
+    </div>
+
+    <p>
+      If you have any questions, concerns or requests regarding this Privacy Policy or your personal data,
+      please contact our Data Protection Officer:
+    </p>
+
+    <div class="contact-card">
+      <a class="contact-pill" href="mailto:privacy@saransh.app">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+        privacy@saransh.app
+      </a>
+      <a class="contact-pill" href="https://saransh.app" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+        saransh.app
+      </a>
+    </div>
+
+    <hr />
+
+    <p style="font-size: 14px; color: var(--text-muted); margin-top: 12px;">
+      We will respond to all privacy-related requests within <strong>30 days</strong> as required by the
+      Digital Personal Data Protection Act, 2023. For urgent security concerns, please email us with
+      "URGENT" in the subject line.
+    </p>
+  </section>
+
+</div>
+
+<!-- ── Footer ───────────────────────────────────────────────────────────────── -->
+<footer>
+  <p>© 2026 Saransh. All rights reserved.</p>
+  <p style="margin-top: 6px;">
+    <a href="#s1">Privacy Policy</a> &nbsp;·&nbsp;
+    <a href="mailto:privacy@saransh.app">Contact DPO</a>
+  </p>
+</footer>
+
+</body>
+</html>
