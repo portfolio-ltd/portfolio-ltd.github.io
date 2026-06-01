@@ -278,6 +278,83 @@
       font-size: 14px; font-weight: 600;
     }
 
+    .stack-section h2 { margin-top: 10px; }
+    .tech-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 20px;
+      margin-top: 24px;
+    }
+    .tech-card {
+      display: grid;
+      gap: 16px;
+      padding: 24px;
+      border-radius: 24px;
+      border: 1px solid #e2e8f0;
+      background: #ffffff;
+      box-shadow: 0 16px 40px rgba(15,23,42,0.06);
+    }
+    .tech-card h3 {
+      margin: 0;
+      font-size: 1.05rem;
+      color: #0f172a;
+    }
+    .tech-card p {
+      margin: 0;
+      color: #475569;
+      line-height: 1.75;
+    }
+    .tech-icon {
+      width: 64px;
+      height: 64px;
+      border-radius: 22px;
+      background: #f8fafc;
+      padding: 12px;
+      display: block;
+      box-shadow: 0 14px 30px rgba(15,23,42,0.08);
+    }
+
+    .blog-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+      margin-top: 32px;
+    }
+    .blog-card {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      padding: 28px;
+      border-radius: 26px;
+      border: 1px solid #e2e8f0;
+      background: #ffffff;
+      box-shadow: 0 18px 50px rgba(15,23,42,0.06);
+    }
+    .blog-tag {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 8px 14px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--primary);
+      background: rgba(108,99,255,0.08);
+      width: fit-content;
+    }
+    .blog-card h3 {
+      margin: 0;
+      font-size: 1.15rem;
+      line-height: 1.35;
+    }
+    .blog-card p {
+      margin: 0;
+      color: var(--text-muted);
+      line-height: 1.8;
+    }
+
     /* ── FOOTER ── */
     footer {
       border-top: 1px solid var(--border);
@@ -309,7 +386,7 @@
     </a>
     <div class="nav-links">
       <a href="#apps" class="btn btn-ghost">Apps</a>
-      <a href="#about" class="btn btn-ghost">About</a>
+      <a href="https://sagarchandagarwal.com" class="btn btn-ghost" target="_blank" rel="noopener">About Developer</a>
       <a href="/contact.html" class="btn btn-primary">Contact</a>
     </div>
   </nav>
@@ -476,32 +553,58 @@
   </section>
 
   <!-- TECH STACK -->
-  <section class="section">
+  <section class="section stack-section">
     <div class="section-inner">
       <span class="section-label">Tech stack</span>
       <h2>Infrastructure and platforms we build on</h2>
       <p>Backend and platform engineering leader with deep hands-on experience across Python backend systems, DevOps, cloud infrastructure, data platforms, and engineering team leadership. We ship reliable systems with strong production discipline and scalable architecture.</p>
-      <div class="feature-grid">
-        <div class="feature-card"><strong>Backend engineering</strong>Python, FastAPI, Flask, REST APIs, microservices, PostgreSQL, Redis, SQL, Node.js, API integrations.</div>
-        <div class="feature-card"><strong>DevOps & platform</strong>Kubernetes, Docker, CI/CD, AWS, GCP, Azure, on-prem infrastructure, observability, SLA monitoring, fault tolerance.</div>
-        <div class="feature-card"><strong>Data platforms</strong>ETL/ELT pipelines, batch & streaming systems, data modelling, financial data processing, analytics serving layers.</div>
-        <div class="feature-card"><strong>Architecture</strong>Distributed systems, multi-cloud architecture, service boundaries, reliability engineering, performance optimisation, schema design.</div>
+      <div class="tech-grid">
+        <article class="tech-card">
+          <img class="tech-icon" alt="Backend engineering" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='18' fill='%232c5282'/%3E%3Cpath d='M18 24h28v4H18zm0 12h28v4H18zm0 12h16v4H18z' fill='%23fff'/%3E%3C/svg%3E" />
+          <h3>Backend engineering</h3>
+          <p>Python, FastAPI, Flask, REST APIs, microservices, PostgreSQL, Redis, SQL, Node.js, API integrations.</p>
+        </article>
+        <article class="tech-card">
+          <img class="tech-icon" alt="DevOps platform" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='18' fill='%23f97316'/%3E%3Cpath d='M20 34a10 10 0 0 1 18-6 8 8 0 0 1 10 8 6 6 0 0 1-6 6H22a6 6 0 0 1-6-6z' fill='%23fff'/%3E%3C/svg%3E" />
+          <h3>DevOps & platform</h3>
+          <p>Kubernetes, Docker, CI/CD, AWS, GCP, Azure, on-prem infrastructure, observability, SLA monitoring, fault tolerance.</p>
+        </article>
+        <article class="tech-card">
+          <img class="tech-icon" alt="Data platforms" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='18' fill='%2310b981'/%3E%3Cellipse cx='32' cy='22' rx='18' ry='8' fill='%23fff'/%3E%3Cpath d='M14 22v8c0 4.4 8.1 8 18 8s18-3.6 18-8v-8' fill='none' stroke='%23fff' stroke-width='4'/%3E%3Cpath d='M14 34v8c0 4.4 8.1 8 18 8s18-3.6 18-8v-8' fill='none' stroke='%23fff' stroke-width='4'/%3E%3C/svg%3E" />
+          <h3>Data platforms</h3>
+          <p>ETL/ELT pipelines, batch & streaming systems, data modelling, financial data processing, analytics serving layers.</p>
+        </article>
+        <article class="tech-card">
+          <img class="tech-icon" alt="Architecture" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='18' fill='%238b5cf6'/%3E%3Cpath d='M22 22h20v20H22z' fill='none' stroke='%23fff' stroke-width='4'/%3E%3Ccircle cx='22' cy='22' r='4' fill='%23fff'/%3E%3Ccircle cx='42' cy='22' r='4' fill='%23fff'/%3E%3Ccircle cx='32' cy='42' r='4' fill='%23fff'/%3E%3Cpath d='M22 22l10 20 10-20' fill='none' stroke='%23fff' stroke-width='4'/%3E%3C/svg%3E" />
+          <h3>Architecture</h3>
+          <p>Distributed systems, multi-cloud architecture, service boundaries, reliability engineering, performance optimisation, schema design.</p>
+        </article>
       </div>
     </div>
   </section>
 
-  <!-- ABOUT DEVELOPER -->
-  <section class="section">
+  <!-- BLOG -->
+  <section class="section blog-section">
     <div class="section-inner">
-      <span class="section-label">About the developer</span>
-      <h2>Leadership grounded in hands-on engineering execution</h2>
-      <p>Backend and platform engineering leader with 8+ years of experience designing Python-based backend systems, distributed data platforms, ETL pipelines, and cloud infrastructure for fintech and SaaS environments. Former CTO with strong hands-on ownership across FastAPI/Flask services, PostgreSQL, Redis, Kubernetes, Docker, CI/CD, multi-cloud infrastructure, observability, and financial data processing.</p>
-      <p>Built and mentored engineering teams from 2 to 15, established code review and testing culture, led compliance initiatives, and translated ambiguous business goals into reliable production systems and measurable revenue impact.</p>
-      <div class="feature-grid">
-        <div class="feature-card"><strong>Leadership</strong>Engineering management, hiring, mentoring, technical roadmaps, OKRs, cross-functional alignment, RFC writing, documentation standards.</div>
-        <div class="feature-card"><strong>Security & governance</strong>ISO 27001, DPDP Act, VAPT, data lineage, data quality gates, GDPR-adjacent controls.</div>
-        <div class="feature-card"><strong>Product delivery</strong>Rapid iteration, launch readiness, testing culture, observability, incident response, operational reliability.</div>
-        <div class="feature-card"><strong>Commercial impact</strong>Financial data systems, fintech compliance, platform engineering, cloud cost optimisation, scalable architecture.</div>
+      <span class="section-label">Insights</span>
+      <h2>Three long-form ideas for better product design</h2>
+      <p>Writing about product motion makes your apps stronger. These short essays highlight why ASO matters, how scalability and performance work together, and why responsible LLM guardrails are essential in modern app design.</p>
+      <div class="blog-grid">
+        <article class="blog-card">
+          <span class="blog-tag">ASO</span>
+          <h3>Write App Store optimisation like a product feature</h3>
+          <p>ASO is more than keywords — it is the first product story new users see. Clear titles, sharp descriptions, and focused visuals make apps discoverable, improve conversion, and build the right audience before users even install.</p>
+        </article>
+        <article class="blog-card">
+          <span class="blog-tag">Scalability</span>
+          <h3>Scale apps with intent, not just capacity</h3>
+          <p>Scalability means handling growth without sacrificing speed or reliability. By designing services, data flows, and operational patterns around likely bottlenecks, apps stay fast and resilient as more users join.</p>
+        </article>
+        <article class="blog-card">
+          <span class="blog-tag">Guardrails</span>
+          <h3>Build safe LLM experiences with guardrails</h3>
+          <p>LLMs power smarter interfaces, but they need constraints. Good guardrails protect users, keep outputs consistent, and make AI features trustworthy inside apps — especially when decisions, privacy, or content accuracy matter.</p>
+        </article>
       </div>
     </div>
   </section>
@@ -512,6 +615,8 @@
     <span style="display:flex;gap:24px">
       <a href="/streaks/">Streaks</a>
       <a href="/localspend/">LocalSpend</a>
+      <a href="/skyvoyage/">Sky Voyage</a>
+      <a href="/nutritrack/">NutriTrack</a>
       <a href="/contact.html">Contact</a>
     </span>
     <span>© 2026 Portfolio Ltd</span>
