@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NutriTrack — Nutrition Journey App</title>
+  <meta name="description" content="NutriTrack is a gamified nutrition tracking app for iOS with characters, missions, meal logging, hydration, sleep tracking, and challenges." />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: Inter, -apple-system, BlinkMacSystemFont, sans-serif;
+      color: #111827;
+      background: #f8fafc;
+      line-height: 1.75;
+    }
+    header, main, footer { max-width: 1080px; margin: 0 auto; padding: 24px; }
+    .topnav { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; align-items: center; }
+    .brand { font-size: 1rem; font-weight: 800; letter-spacing: -0.02em; }
+    .nav-links { display: flex; gap: 14px; flex-wrap: wrap; }
+    .nav-links a { color: #0f766e; }
+    .hero { margin-top: 36px; padding: 40px; border-radius: 32px; background: linear-gradient(180deg, #e0f2fe 0%, #f8fafc 100%); box-shadow: 0 24px 80px rgba(15,23,42,0.06); }
+    .hero h1 { font-size: clamp(40px, 5vw, 64px); line-height: 1.03; margin-bottom: 18px; }
+    .hero p { max-width: 720px; font-size: 1.05rem; color: #475569; margin-bottom: 24px; }
+    .badge { display: inline-flex; align-items: center; gap: 10px; padding: 10px 16px; border-radius: 999px; background: #fef3c7; color: #92400e; font-weight: 700; font-size: 0.95rem; }
+    .note { display: inline-flex; align-items: center; gap: 10px; padding: 14px 18px; border-radius: 20px; background: #ecfdf5; color: #0f766e; border: 1px solid #a7f3d0; margin-top: 20px; }
+    .hero-meta { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 14px; margin-top: 28px; }
+    .meta-card { background: white; border: 1px solid #e2e8f0; border-radius: 18px; padding: 18px; }
+    .meta-card strong { display: block; color: #0f172a; margin-bottom: 8px; font-size: 0.96rem; }
+    .section { background: white; border: 1px solid #e2e8f0; border-radius: 28px; padding: 32px; margin-top: 24px; }
+    .section + .section { margin-top: 24px; }
+    .section h2 { font-size: 1.55rem; margin-bottom: 16px; }
+    .section p, .section li, .section table { color: #334155; }
+    .section ul { padding-left: 20px; margin-top: 12px; }
+    .section li { margin-bottom: 10px; }
+    .task-list { list-style: none; padding-left: 0; }
+    .task-list li { margin-bottom: 10px; }
+    .task-list li::before { content: "•"; display: inline-block; width: 1.2em; color: #0f766e; font-weight: 700; }
+    .task-list li.complete::before { content: "✓"; color: #16a34a; }
+    .task-list li.pending::before { content: "○"; color: #94a3b8; }
+    .feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 18px; margin-top: 20px; }
+    .feature-card { padding: 18px; border-radius: 18px; background: #f8fafc; border: 1px solid #e2e8f0; }
+    .feature-card strong { display: block; margin-bottom: 10px; color: #0f172a; }
+    .table-wrapper { overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; margin-top: 18px; }
+    th, td { padding: 14px 12px; border: 1px solid #e2e8f0; text-align: left; }
+    th { background: #f1f5f9; color: #0f172a; font-weight: 700; }
+    .btn { display: inline-flex; align-items: center; justify-content: center; padding: 14px 22px; border-radius: 999px; font-weight: 700; transition: transform 0.15s ease; background: #0f766e; color: white; text-decoration: none; }
+    .btn:hover { transform: translateY(-1px); }
+    footer { text-align: center; padding-bottom: 40px; color: #64748b; font-size: 0.95rem; }
+    @media (max-width: 720px) { .hero-meta { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="topnav">
+      <div class="brand">NutriTrack</div>
+      <div class="nav-links">
+        <a href="privacy.html">Privacy</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="badge">App in development</div>
+      <h1>NutriTrack — Gamified Nutrition Tracker</h1>
+      <p>NutriTrack turns healthy habits into an adventure. Create a character, complete nutrition missions, log meals, build streaks, and earn rewards as you improve your diet.</p>
+      <div class="note">Currently in late-stage development and close to release on iOS.</div>
+      <div class="hero-meta">
+        <div class="meta-card"><strong>Platform</strong>iOS 17+</div>
+        <div class="meta-card"><strong>Architecture</strong>SwiftUI, SwiftData, HealthKit</div>
+        <div class="meta-card"><strong>Status</strong>Development — close to release</div>
+        <div class="meta-card"><strong>Focus</strong>Nutrition, hydration, sleep, gamification</div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Product concept</h2>
+      <p>NutriTrack blends nutrition tracking with gamified missions and character progression. Users log meals and habits, earn points, complete health quests, and unlock rewards while staying motivated with friendly game-like systems.</p>
+      <ul>
+        <li>Character creation and profile setup</li>
+        <li>Daily nutrition summary with macros and goals</li>
+        <li>Hydration and sleep tracking integrated with Apple Health</li>
+        <li>Challenges, streaks, rewards, and in-app celebrations</li>
+      </ul>
+    </section>
+
+    <section class="section">
+      <h2>Development checklist</h2>
+      <ul class="task-list">
+        <li class="complete">Initialize Xcode project and project structure</li>
+        <li class="complete">Onboarding, character creation, and profile setup views</li>
+        <li class="complete">Sign up, login, secure token storage, and logout</li>
+        <li class="pending">Add Sign in with Apple</li>
+        <li class="pending">Add password reset / forgot password flow</li>
+        <li class="complete">Dashboard with food, hydration, sleep, and mission widgets</li>
+        <li class="complete">Meal search, barcode scanner, custom food and recipes</li>
+        <li class="complete">Daily nutrition summary and weekly charts</li>
+        <li class="complete">HealthKit integration for steps, energy, water, and sleep</li>
+        <li class="complete">Notifications for meals, hydration, and streak reminders</li>
+        <li class="complete">Settings with profile, connected apps, and privacy links</li>
+        <li class="pending">Backend sync and offline-first remote data logic</li>
+        <li class="pending">Accessibility and UI automation tests</li>
+        <li class="pending">App Store Connect listing, screenshots, and review submission</li>
+      </ul>
+    </section>
+
+    <section class="section">
+      <h2>Key screens & features</h2>
+      <div class="feature-grid">
+        <div class="feature-card"><strong>Onboarding</strong>Intro flow with app concept, character creation, and user goals.</div>
+        <div class="feature-card"><strong>Dashboard</strong>Daily summary, macros, hydration, sleep, missions, and streak progress.</div>
+        <div class="feature-card"><strong>Meal logging</strong>Search, filter, voice mode, barcode scanner, custom food, and recipes.</div>
+        <div class="feature-card"><strong>Gamification</strong>Streaks, points, rewards, challenges, and completion animations.</div>
+        <div class="feature-card"><strong>HealthKit</strong>Sync steps, calories, water, and sleep to Apple Health.</div>
+        <div class="feature-card"><strong>Settings</strong>Profile edit, connected apps, notification preferences, privacy, and logout.</div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Feature scope</h2>
+      <table>
+        <thead><tr><th>Area</th><th>Status</th><th>Notes</th></tr></thead>
+        <tbody>
+          <tr><td>Project setup</td><td>Completed</td><td>XcodeGen, structure, SPM dependencies</td></tr>
+          <tr><td>Authentication</td><td>Mostly complete</td><td>Email/password ready; Apple sign in pending</td></tr>
+          <tr><td>Meal logging</td><td>Complete</td><td>Including barcode scanner and custom foods</td></tr>
+          <tr><td>Nutrition summary</td><td>Complete</td><td>Charts and macros daily view</td></tr>
+          <tr><td>Hydration & sleep</td><td>Complete</td><td>Dedicated log screens and dashboard widgets</td></tr>
+          <tr><td>Gamification</td><td>Complete</td><td>Streaks, rewards, daily missions</td></tr>
+          <tr><td>Backend sync</td><td>Pending</td><td>Offline-first remote logic not yet implemented</td></tr>
+          <tr><td>App Store prep</td><td>Pending</td><td>Listing and review submission upcoming</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="section">
+      <h2>Development priorities</h2>
+      <p>The app is in the final stretch of development, with the highest priority items now focused on App Store requirements, Sign in with Apple, privacy compliance, and release polish.</p>
+      <ul>
+        <li>Implement Sign in with Apple and password reset</li>
+        <li>Complete App Store Connect metadata and screenshot assets</li>
+        <li>Finish CI/CD pipeline configuration for release builds</li>
+        <li>Validate accessibility, dynamic type, and device compatibility</li>
+      </ul>
+    </section>
+
+    <section class="section">
+      <h2>Release status</h2>
+      <p class="note">NutriTrack is under active development and is close to a release-ready build for iOS. The current focus is on launch polish, App Store compliance, and finishing the final authentication and backend sync work.</p>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2026 NutriTrack · In development, close to iOS release</p>
+  </footer>
+</body>
+</html>

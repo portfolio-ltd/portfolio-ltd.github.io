@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sky Voyage — Hot Air Balloon Run</title>
+  <meta name="description" content="Sky Voyage is a hot air balloon endless runner with 6 unique biomes, gyroscope steering, leaderboards, and customisable balloon skins." />
+  <meta property="og:title" content="Sky Voyage — Hot Air Balloon Run" />
+  <meta property="og:description" content="Soar through 6 stunning biomes, dodge obstacles, collect coins, and climb the global leaderboard." />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: Inter, -apple-system, BlinkMacSystemFont, sans-serif;
+      color: #111827;
+      background: #f8fafc;
+      line-height: 1.65;
+    }
+    a { color: #0f766e; text-decoration: none; }
+    body > header, body > main, body > footer { max-width: 1080px; margin: 0 auto; padding: 24px; }
+    header { padding-top: 32px; }
+    .topnav { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; align-items: center; }
+    .brand { font-size: 1rem; font-weight: 800; letter-spacing: -0.02em; }
+    .nav-links { display: flex; gap: 14px; flex-wrap: wrap; }
+    .badge { display: inline-flex; align-items: center; gap: 10px; padding: 10px 16px; border-radius: 999px; background: #d1fae5; color: #065f46; font-weight: 700; font-size: 0.95rem; }
+    .hero { margin-top: 36px; padding: 40px; border-radius: 32px; background: linear-gradient(180deg, #ecfeff 0%, #f8fafc 100%); box-shadow: 0 24px 80px rgba(15,23,42,0.06); }
+    .hero h1 { font-size: clamp(40px, 5vw, 64px); line-height: 1.03; margin-bottom: 18px; }
+    .hero p { max-width: 720px; font-size: 1.05rem; color: #475569; margin-bottom: 24px; }
+    .hero .hero-meta { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 14px; margin-top: 28px; }
+    .hero .meta-card { background: white; border: 1px solid #e2e8f0; border-radius: 18px; padding: 18px; }
+    .hero .meta-card strong { display: block; color: #0f172a; margin-bottom: 8px; font-size: 0.96rem; }
+    .hero .meta-card span { color: #6b7280; font-size: 0.92rem; }
+    .section { background: white; border: 1px solid #e2e8f0; border-radius: 28px; padding: 32px; margin-top: 24px; }
+    .section + .section { margin-top: 24px; }
+    .section h2 { font-size: 1.55rem; margin-bottom: 16px; }
+    .section p, .section li, .section table { color: #334155; }
+    .section ul { padding-left: 20px; margin-top: 12px; }
+    .section li { margin-bottom: 10px; }
+    .feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 18px; margin-top: 20px; }
+    .feature-card { padding: 18px; border-radius: 18px; background: #f8fafc; border: 1px solid #e2e8f0; }
+    .feature-card strong { display: block; margin-bottom: 10px; color: #0f172a; }
+    .small-text { font-size: 0.95rem; color: #64748b; }
+    table { width: 100%; border-collapse: collapse; margin-top: 18px; }
+    th, td { padding: 14px 12px; border: 1px solid #e2e8f0; text-align: left; }
+    th { background: #f1f5f9; color: #0f172a; font-weight: 700; }
+    td { color: #334155; }
+    .cta { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 24px; }
+    .btn { display: inline-flex; align-items: center; justify-content: center; padding: 14px 22px; border-radius: 999px; font-weight: 700; transition: transform 0.15s ease; }
+    .btn:hover { transform: translateY(-1px); }
+    .btn-primary { background: #0f766e; color: white; }
+    .btn-secondary { background: #f0fdfa; color: #0f766e; border: 1px solid #0f766e; }
+    footer { text-align: center; padding-bottom: 40px; color: #64748b; font-size: 0.95rem; }
+    .note { display: inline-flex; align-items: center; gap: 10px; padding: 12px 16px; margin-top: 16px; border-radius: 16px; background: #ecfeff; color: #065f46; border: 1px solid #a7f3d0; }
+    @media (max-width: 720px) { .hero .hero-meta { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="topnav">
+      <div class="brand">Sky Voyage</div>
+      <div class="nav-links">
+        <a href="privacy.html">Privacy</a>
+        <a href="https://play.google.com/store/apps/details?id=com.skyvoyage" target="_blank" rel="noopener">Google Play</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="badge">Closed release testing</div>
+      <h1>Sky Voyage: Hot Air Balloon Run</h1>
+      <p>Soar through 6 stunning biomes, dodge obstacles, collect coins, and climb the global leaderboard in this arcade balloon endless runner.</p>
+      <div class="hero-meta">
+        <div class="meta-card">
+          <strong>Platform</strong>
+          <span>Google Play Store</span>
+        </div>
+        <div class="meta-card">
+          <strong>Package</strong>
+          <span>com.skyvoyage</span>
+        </div>
+        <div class="meta-card">
+          <strong>Current Build</strong>
+          <span>versionCode 30 · versionName 1.0.0-ct.13</span>
+        </div>
+        <div class="meta-card">
+          <strong>Content Rating</strong>
+          <span>Everyone (E)</span>
+        </div>
+      </div>
+      <div class="cta">
+        <a class="btn btn-primary" href="https://play.google.com/store/apps/details?id=com.skyvoyage" target="_blank" rel="noopener">View on Play Store</a>
+        <a class="btn btn-secondary" href="privacy.html">Read privacy policy</a>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Short description</h2>
+      <p class="small-text">Shown on search results cards (80 characters max).</p>
+      <p><strong>Soar through 6 stunning biomes. Dodge obstacles, collect coins, beat your best!</strong></p>
+    </section>
+
+    <section class="section">
+      <h2>Full description</h2>
+      <p class="small-text">Keyword-rich, benefit-led, scannable listing content.</p>
+      <div>
+        <p>🎈 <strong>SKY VOYAGE — THE ULTIMATE HOT AIR BALLOON ADVENTURE</strong></p>
+        <p>Take to the skies in Sky Voyage, the exhilarating endless balloon game where skill, timing, and nerves of steel are your only fuel!</p>
+        <p><strong>CONTROL YOUR BALLOON</strong><br />Hold and drag to steer your hot air balloon through a living, breathing sky. Fire the burner to climb, release to drift — every movement matters. Enable gyroscope steering and physically tilt your phone to bank and soar.</p>
+        <p><strong>6 BREATHTAKING BIOMES</strong></p>
+        <ul>
+          <li>Peaceful Meadows (0–2 km) — Rolling hills, gentle breezes, and golden coins</li>
+          <li>Mountain Passes (2–5 km) — Jagged peaks, thorn brambles, and narrow corridors</li>
+          <li>Storm Clouds (5–10 km) — Lightning bolts, hail bursts, and charged spike clouds</li>
+          <li>Desert Dunes (10–18 km) — Scorching thermals, sandstorms, and sky pirates</li>
+          <li>Arctic Tundra (18–30 km) — Blizzards, frozen spike formations, and rival balloons</li>
+          <li>Sky Kingdom (30+ km) — Endless skies, legendary obstacles, and ultimate glory</li>
+        </ul>
+        <p><strong>COLLECT & POWER UP</strong><br />Grab coins to unlock spectacular balloon skins. Speed Boost, Shield Bubble, Coin Magnet, Slow Time, and more! Earn rare gems to unlock premium cosmetics. Watch your fuel gauge — grab Fuel Tanks before you fall!</p>
+        <p><strong>CUSTOMISE YOUR BALLOON</strong><br />Deck out your balloon in the Hangar with unique envelope skins, basket styles, crew members, and flags. Every piece gives stat bonuses — choose wisely!</p>
+        <p><strong>CLIMB THE LEADERBOARDS</strong><br />Compete against players worldwide on the global distance leaderboard, or go head-to-head with friends. Unlock 30+ achievements and prove you're the greatest aviator in the skies.</p>
+        <p><strong>FEATURES</strong></p>
+        <ul>
+          <li>Smooth drag & gyroscope controls — steer with touch or tilt</li>
+          <li>Infinite procedurally generated world with seamless biome transitions</li>
+          <li>Full progression system: XP, levels (1–50+), prestige ranks</li>
+          <li>Three upgrade trees: Balloon Tech, Navigation Skills, Crew Training</li>
+          <li>Zone-exclusive obstacles — every biome has its own unique hazards</li>
+          <li>Rewarded video ads: revive your run, double your coins, grab a free power-up</li>
+          <li>Beautiful parallax sky environments with day/night cycle</li>
+          <li>Immersive zone-specific music for every biome</li>
+          <li>Haptic feedback and satisfying SFX</li>
+          <li>Google Play Games: cloud saves, achievements, leaderboards</li>
+          <li>Dark mode support and adaptive icon</li>
+        </ul>
+        <p>Can you make it past the Sky Kingdom? Download free and find out!</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Keywords / Search tags</h2>
+      <p class="small-text">Ordered by estimated volume for metadata and A/B tests.</p>
+      <table>
+        <thead>
+          <tr><th>Priority</th><th>Keyword</th><th>Notes</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>🔴 High</td><td>hot air balloon game</td><td>Core genre</td></tr>
+          <tr><td>🔴 High</td><td>balloon run</td><td>Direct gameplay descriptor</td></tr>
+          <tr><td>🔴 High</td><td>endless runner</td><td>Genre cross-over audience</td></tr>
+          <tr><td>🔴 High</td><td>sky game</td><td>Broad discovery</td></tr>
+          <tr><td>🟡 Medium</td><td>balloon adventure</td><td>Adventure audience</td></tr>
+          <tr><td>🟡 Medium</td><td>flying game android</td><td>Platform + genre</td></tr>
+          <tr><td>🟡 Medium</td><td>avoid obstacles game</td><td>Mechanic-based search</td></tr>
+          <tr><td>🟡 Medium</td><td>arcade game offline</td><td>Offline play is a feature</td></tr>
+          <tr><td>🟡 Medium</td><td>soar fly balloon</td><td>Verb-led searches</td></tr>
+          <tr><td>🟢 Low</td><td>hot air balloon simulator</td><td>Niche simulation audience</td></tr>
+          <tr><td>🟢 Low</td><td>sky voyage</td><td>Branded (own name)</td></tr>
+          <tr><td>🟢 Low</td><td>biome adventure game</td><td>Exploratory search</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="section">
+      <h2>Developer & category</h2>
+      <div class="feature-grid">
+        <div class="feature-card"><strong>Developer</strong>Sky Voyage Studio</div>
+        <div class="feature-card"><strong>Primary category</strong>Games → Arcade</div>
+        <div class="feature-card"><strong>Secondary category</strong>Games → Casual</div>
+        <div class="feature-card"><strong>Content rating</strong>Everyone (E)</div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>In-app purchases</h2>
+      <p>The app contains optional in-app purchases.</p>
+      <ul>
+        <li>Gem packs (cosmetic premium currency): $0.99 – $19.99</li>
+        <li>No pay-to-win mechanics; all gameplay-affecting power-ups are earnable for free</li>
+      </ul>
+    </section>
+
+    <section class="section">
+      <h2>Release notes</h2>
+      <p><strong>v1.0.0-ct.13 — Closed Testing</strong></p>
+      <ul>
+        <li>New app icon — beautiful balloon-on-sunset-sky design</li>
+        <li>Google Play Games sign-in now shows correct status in Settings</li>
+        <li>Leaderboard screen opens reliably; falls back to full leaderboard hub</li>
+        <li>Play Games SDK initialised at app startup for faster sign-in</li>
+        <li>Minor stability and performance improvements</li>
+      </ul>
+    </section>
+
+    <section class="section">
+      <h2>Screenshot & promo strategy</h2>
+      <p class="small-text">Recommended playstore creative plan.</p>
+      <ul>
+        <li><strong>Screenshot 1</strong> — Soar through breathtaking skies</li>
+        <li><strong>Screenshot 2</strong> — Dodge lightning & storm clouds</li>
+        <li><strong>Screenshot 3</strong> — Tilt to steer with gyroscope</li>
+        <li><strong>Screenshot 4</strong> — 6 unique biomes</li>
+        <li><strong>Screenshot 5</strong> — Collect power-ups before your fuel runs out</li>
+        <li><strong>Screenshot 6</strong> — Customise your balloon in the Hangar</li>
+        <li><strong>Screenshot 7</strong> — Climb global leaderboards</li>
+      </ul>
+      <p>Feature graphic: balloon above clouds, "Sky Voyage" title top-left, tagline “How far will you fly?” bottom-right.</p>
+    </section>
+
+    <section class="section">
+      <h2>Locale titles</h2>
+      <table>
+        <thead>
+          <tr><th>Locale</th><th>Title</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>en-US</td><td>Sky Voyage: Hot Air Balloon Run</td></tr>
+          <tr><td>de-DE</td><td>Sky Voyage: Heißluftballon Abenteuer</td></tr>
+          <tr><td>es-ES</td><td>Sky Voyage: Aventura en Globo Aerostático</td></tr>
+          <tr><td>fr-FR</td><td>Sky Voyage: Course en Montgolfière</td></tr>
+          <tr><td>ja-JP</td><td>Sky Voyage: 熱気球の大冒険</td></tr>
+          <tr><td>ko-KR</td><td>Sky Voyage: 열기구 어드벤처</td></tr>
+          <tr><td>zh-TW</td><td>Sky Voyage: 熱氣球飛行冒險</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="section">
+      <h2>Testing status</h2>
+      <p class="note">Sky Voyage is currently in closed release testing on Google Play. This build is available to invited testers while final polish and performance improvements are completed.</p>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2026 Sky Voyage Studio · <a href="privacy.html">Privacy Policy</a></p>
+  </footer>
+</body>
+</html>
